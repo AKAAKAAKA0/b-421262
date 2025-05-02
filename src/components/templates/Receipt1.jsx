@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { format } from 'date-fns';
 import BaseTemplate2 from './BaseTemplate2';
 import { calculateSubTotal, calculateTaxAmount, calculateGrandTotal } from '../../utils/invoiceCalculations';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { t } from '../../utils/translate';
 
 const Receipt1 = ({ data, isPrint = false }) => {
   const { billTo = {}, invoice = {}, yourCompany = {}, cashier = '', items = [], taxPercentage = 0, notes = '', footer = '' } = data || {};
@@ -29,30 +31,30 @@ const Receipt1 = ({ data, isPrint = false }) => {
         }}
       >
         <div className="flex-grow">
-          <div className="text-center font-bold mb-2">RECEIPT</div>
+          <div className="text-center font-bold mb-2">{t("RECEIPT")}</div>
           <div className="mb-2 text-center">
             <div>{yourCompany.name || "N/A"}</div>
             <div>{yourCompany.address || "N/A"}</div>
             {yourCompany.phone && <div>{yourCompany.phone}</div>}
           </div>
-            <div>Invoice: {invoice.number || "N/A"}</div>
+            <div>{t("Invoice")}: {invoice.number || "N/A"}</div>
             <div>
-              Date:{" "}
+              {t("Date")}:{" "}
               {invoice.date
                 ? `${format(new Date(invoice.date), "MM/dd/yyyy")} ${format(new Date(), "HH:mm")}`
                 : "N/A"}
             </div>
-          <div className="mb-2">Customer: {billTo || "N/A"}</div>
-          <div className="mb-2">Cashier: {cashier || "N/A"}</div>
+          <div className="mb-2">{t("Customer")}: {billTo || "N/A"}</div>
+          <div className="mb-2">{t("Cashier")}: {cashier || "N/A"}</div>
           <div className="border-t border-b py-2 mb-2">
             <div className="flex justify-between font-bold mb-2">
-              <span>Item</span>
-              <span>Total</span>
+              <span>{t("Item")}</span>
+              <span>{t("Total")}</span>
             </div>
             {items.map((item, index) => (
               <div key={index} className="flex justify-between mb-2">
                 <div>
-                  <span>{item.name || "N/A"} X {item.quantity || 0} qty</span>
+                  <span>{item.name || "N/A"} X {item.quantity || 0} {t("qty")}</span>
                 </div>
                 <span>
                   {formatCurrency((item.quantity || 0) * (item.amount || 0))}
@@ -61,17 +63,17 @@ const Receipt1 = ({ data, isPrint = false }) => {
             ))}
           </div>
           <div className="flex justify-between">
-            <span>Subtotal:</span>
+            <span>{t("Subtotal")}:</span>
             <span>{formatCurrency(subTotal)}</span>
           </div>
           {taxPercentage > 0 && (
             <div className="flex justify-between">
-              <span>Tax ({taxPercentage}%):</span>
+              <span>{t("Tax")} ({taxPercentage}%):</span>
               <span>{formatCurrency(taxAmount)}</span>
             </div>
           )}
           <div className="flex justify-between font-bold mt-2">
-            <span>Total:</span>
+            <span>{t("Total")}:</span>
             <span>{formatCurrency(total)}</span>
           </div>
           {notes && (
