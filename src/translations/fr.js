@@ -38,9 +38,9 @@ export const translations = {
   "Generate new GST number": "Générer un nouveau numéro TVA",
   "Quantity": "Quantité",
   "Amount": "Montant",
-  "Amount (₹)": "Montant (₹)",
+  "Amount (₹)": "Montant (€)",
   "Total": "Total",
-  "Total (₹)": "Total (₹)",
+  "Total (₹)": "Total (€)",
   "Description": "Description",
 
   // Reçus

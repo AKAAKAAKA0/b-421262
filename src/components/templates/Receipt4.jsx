@@ -1,8 +1,13 @@
 import React from 'react';
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const Receipt4 = ({ data }) => {
   const { billTo, invoice, yourCompany, items, taxPercentage, footer, cashier } = data;
   const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+  const subTotal = items.reduce((sum, item) => sum + (Number(item.total) || 0), 0);
+  const tax = subTotal * (Number(taxPercentage) / 100);
+  const total = subTotal + tax;
 
   return (
     <div className="p-4 font-['Courier_New',_monospace]">
@@ -41,13 +46,13 @@ const Receipt4 = ({ data }) => {
               <tr className="align-bottom">
                 <td>{item.name}</td>
                 <td className="text-right text-sm">{item.quantity}</td>
-                <td className="text-right text-sm">{item.amount}</td>
+                <td className="text-right text-sm">{formatCurrency(Number(item.amount) || 0)}</td>
               </tr>
               <tr className="align-top">
                 <td colSpan="2" className="text-left text-sm pb-2">
                   HSN Code: {item.description}
                 </td>
-                <td className="text-right pb-2">Total: {item.total}</td>
+                <td className="text-right pb-2">Total: {formatCurrency(Number(item.total) || 0)}</td>
               </tr>
             </React.Fragment>
           ))}
@@ -56,29 +61,15 @@ const Receipt4 = ({ data }) => {
       <hr className="my-4" />
       <div className="flex justify-between">
         <span>Sub Total:</span>
-        <span>
-          INR {items.reduce((sum, item) => sum + item.total, 0).toFixed(2)}
-        </span>
+        <span>{formatCurrency(subTotal)}</span>
       </div>
       <div className="flex justify-between">
         <span>Tax ({taxPercentage}%):</span>
-        <span>
-          INR{" "}
-          {(
-            items.reduce((sum, item) => sum + item.total, 0) *
-            (taxPercentage / 100)
-          ).toFixed(2)}
-        </span>
+        <span>{formatCurrency(tax)}</span>
       </div>
       <div className="flex justify-between font-bold">
         <span>TOTAL:</span>
-        <span>
-          INR{" "}
-          {(
-            items.reduce((sum, item) => sum + item.total, 0) *
-            (1 + taxPercentage / 100)
-          ).toFixed(2)}
-        </span>
+        <span>{formatCurrency(total)}</span>
       </div>
       <hr className="my-4" />
       <div>

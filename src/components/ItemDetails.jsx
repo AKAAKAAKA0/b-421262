@@ -27,14 +27,14 @@ const ItemDetails = ({ items, handleItemChange, addItem, removeItem }) => {
             />
             <FloatingLabelInput
               id={`itemAmount${index}`}
-              label={t("Amount (₹)")}
+              label={`${t("Amount")} (€)`}
               type="number"
               value={item.amount}
               onChange={(e) => handleItemChange(index, 'amount', parseFloat(e.target.value))}
             />
             <FloatingLabelInput
               id={`itemTotal${index}`}
-              label={t("Total (₹)")}
+              label={`${t("Total")} (€)`}
               type="number"
               value={(item.quantity * item.amount).toFixed(2)}
               disabled

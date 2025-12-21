@@ -10,6 +10,7 @@ import { RefreshCw } from "lucide-react";
 import { set, sub } from "date-fns";
 import { t } from '../utils/translate';
 import { noteOptionsTranslated } from '../translations/fr';
+import { formatCurrency } from "../utils/formatCurrency";
 
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
@@ -396,7 +397,7 @@ const Index = () => {
               <h3 className="text-lg font-medium mb-2">{t("Totals")}</h3>
               <div className="flex justify-between mb-2">
                 <span>{t("Sub Total")}:</span>
-                <span>₹ {subTotal}</span>
+                <span>{formatCurrency(parseFloat(subTotal) || 0)}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span>{t("Tax Rate (%)")}:</span>
@@ -412,11 +413,11 @@ const Index = () => {
               </div>
               <div className="flex justify-between mb-2">
                 <span>{t("Tax Amount")}:</span>
-                <span>₹ {taxAmount}</span>
+                <span>{formatCurrency(parseFloat(taxAmount) || 0)}</span>
               </div>
               <div className="flex justify-between font-bold">
                 <span>{t("Grand Total")}:</span>
-                <span>₹ {grandTotal}</span>
+                <span>{formatCurrency(parseFloat(grandTotal) || 0)}</span>
               </div>
             </div>
 

@@ -10,8 +10,9 @@ import { generateReceiptPDF } from "../utils/receiptPDFGenerator";
 import { generateGSTNumber } from "../utils/invoiceCalculations";
 import FloatingLabelInput from "../components/FloatingLabelInput";
 import ItemDetails from "../components/ItemDetails";
-import { t } from '../utils/translate';
-import { footerOptionsTranslated } from '../translations/fr';
+import { t } from "../utils/translate";
+import { footerOptionsTranslated } from "../translations/fr";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
@@ -302,7 +303,7 @@ const ReceiptPage = () => {
               <h3 className="text-lg font-medium mb-2">{t("Totals")}</h3>
               <div className="flex justify-between mb-2">
                 <span>{t("Sub Total")}:</span>
-                <span>₹ {calculateSubTotal()}</span>
+                <span>{formatCurrency(parseFloat(calculateSubTotal()) || 0)}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span>{t("Tax (%)")}:</span>
@@ -320,11 +321,11 @@ const ReceiptPage = () => {
               </div>
               <div className="flex justify-between mb-2">
                 <span>{t("Tax Amount")}:</span>
-                <span>₹ {calculateTaxAmount()}</span>
+                <span>{formatCurrency(parseFloat(calculateTaxAmount()) || 0)}</span>
               </div>
               <div className="flex justify-between font-bold">
                 <span>{t("Grand Total")}:</span>
-                <span>₹ {calculateGrandTotal()}</span>
+                <span>{formatCurrency(parseFloat(calculateGrandTotal()) || 0)}</span>
               </div>
             </div>
 
